@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/jasonli0226/ssh-connection-manager/internal/app"
-	"github.com/jasonli0226/ssh-connection-manager/internal/logging"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/app"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/logging"
 	"github.com/spf13/cobra"
 )
 
@@ -19,6 +19,7 @@ func NewRootCommand(sshManager *app.SSHManager) *cobra.Command {
 	rootCmd.AddCommand(newAddCommand(sshManager))
 	rootCmd.AddCommand(newListCommand(sshManager))
 	rootCmd.AddCommand(newConnectCommand(sshManager))
+	rootCmd.AddCommand(newDeleteCommand(sshManager))
 
 	return rootCmd
 }
@@ -95,6 +96,25 @@ func newConnectCommand(sshManager *app.SSHManager) *cobra.Command {
 				fmt.Printf("Error connecting to %s: %v\n", alias, err)
 			} else {
 				logging.Log.Info().Str("alias", alias).Msg("Connection closed")
+			}
+		},
+	}
+}
+
+func newDeleteCommand(sshManager *app.SSHManager) *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete <alias>",
+		Short: "Delete a saved SSH connection",
+		Args:  cobra.ExactArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			alias := args[0]
+			err := sshManager.DeleteConnection(alias)
+			if err != nil {
+				logging.Log.Error().Err(err).Str("alias", alias).Msg("Failed to delete connection")
+				fmt.Printf("Error deleting connection %s: %v\n", alias, err)
+			} else {
+				logging.Log.Info().Str("alias", alias).Msg("Connection deleted successfully")
+				fmt.Printf("Connection %s deleted successfully\n", alias)
 			}
 		},
 	}

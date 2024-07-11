@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jasonli0226/ssh-connection-manager/internal/app"
-	"github.com/jasonli0226/ssh-connection-manager/internal/cli"
-	"github.com/jasonli0226/ssh-connection-manager/internal/infra/storage"
-	"github.com/jasonli0226/ssh-connection-manager/internal/logging"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/app"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/cli"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/infra/storage"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/logging"
 )
 
 func main() {

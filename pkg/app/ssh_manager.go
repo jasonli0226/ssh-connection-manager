@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jasonli0226/ssh-connection-manager/internal/domain"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/domain"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -90,6 +90,19 @@ func (m *SSHManager) Connect(alias string) error {
 
 	if err := session.Wait(); err != nil {
 		return NewAppError("SSH session ended with error", err)
+	}
+
+	return nil
+}
+
+func (m *SSHManager) DeleteConnection(alias string) error {
+	if alias == "" {
+		return NewAppError("Invalid alias", nil)
+	}
+
+	err := m.repo.Delete(alias)
+	if err != nil {
+		return NewAppError(fmt.Sprintf("Failed to delete connection with alias '%s'", alias), err)
 	}
 
 	return nil

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/jasonli0226/ssh-connection-manager/internal/domain"
+	"github.com/jasonli0226/ssh-connection-manager/pkg/domain"
 )
 
 type FileConnectionRepository struct {

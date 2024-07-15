@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/jasonli0226/ssh-connection-manager/pkg/app"
+	"github.com/jasonli0226/ssh-connection-manager/internal/app"
 	"github.com/jasonli0226/ssh-connection-manager/pkg/logging"
 	"github.com/spf13/cobra"
 )
